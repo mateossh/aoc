@@ -29,6 +29,20 @@ def find_all(string, pattern):
     return occurences
 
 
+def is_valid_2(string, pattern, pos1, pos2):
+    valid = False
+
+    i1 = int(pos1) - 1
+    i2 = int(pos2) - 1
+
+    if (string[i1] == pattern and string[i2] == pattern):
+        valid = False
+    elif (string[i1] == pattern or string[i2] == pattern):
+        valid = True
+
+    return valid
+
+
 def main():
     prepared_input = prepare_input()
     valid_passwords = 0
@@ -39,7 +53,16 @@ def main():
         if (num >= record[2] and num <= record[3]):
             valid_passwords += 1
 
-    print("Day 02, answer - {}".format(valid_passwords))
+    # --------------------------------------------------------
+    valid_passwords_2 = 0
+
+    for record in prepared_input:
+        res = is_valid_2(record[0], record[1], record[2], record[3]) # XDDDDD what the f is this
+        if (res == True):
+            valid_passwords_2 += 1
+
+    print("Day 02 *  - answer - {}".format(valid_passwords))
+    print("Day 02 ** - answer - {}".format(valid_passwords_2))
 
 
 if __name__ == "__main__":
