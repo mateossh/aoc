@@ -2,33 +2,24 @@ const text = await Deno.readTextFile('./input');
 
 const elvesString: string[] = text.split('\n\n');
 
-const elfCaloriesSum: number[] = [];
+const caloriesSumArr: number[] = [];
 
 for (const elf of elvesString) {
-  const newElf: number[] = [];
-  const meals = elf.split('\n');
+  const meals = elf.split('\n').map(meal => parseInt(meal));
 
-  for (const meal of meals) {
-    newElf.push(parseInt(meal));
-  }
-
-  // LSP complains, FIXME
-  const caloriesSum = newElf.reduce((accumulator, current) => {
-    if (isNaN(current)) {
-      return
-    }
+  const caloriesSum = meals.reduce((accumulator, current) => {
+    if (isNaN(current)) return accumulator;
     return accumulator + current;
   }, 0);
 
-  elfCaloriesSum.push(caloriesSum);
-  // console.log(`elf: ${caloriesSum}`);
+  caloriesSumArr.push(caloriesSum);
 }
 
-elfCaloriesSum.sort((a, b) => {
+caloriesSumArr.sort((a, b) => {
   if (a < b) return 1;
   if (a > b) return -1;
   return 0;
 })
 
-console.log(`solution 1 - ${elfCaloriesSum[0]}`);
-console.log(`solution 2 - ${elfCaloriesSum[0] + elfCaloriesSum[1] + elfCaloriesSum[2]}`);
+console.log(`solution 1 - ${caloriesSumArr[0]}`);
+console.log(`solution 2 - ${caloriesSumArr[0] + caloriesSumArr[1] + caloriesSumArr[2]}`);
